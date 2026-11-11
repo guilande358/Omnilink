@@ -1,0 +1,90 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Global Helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // Schema Validation Helpers for public creations
+    function isValidAnalytics(data) {
+      return data.userId is string && data.userId.size() <= 128
+        && data.profileUsername is string && data.profileUsername.size() <= 64
+        && (data.eventType == 'click' || data.eventType == 'view');
+    }
+
+    function isValidLead(data) {
+      return data.userId is string && data.userId.size() <= 128
+        && data.profileUsername is string && data.profileUsername.size() <= 64
+        && data.email is string && data.email.size() <= 256
+        && (!('name' in data) || (data.name is string && data.name.size() <= 128));
+    }
+
+    // 1. Users Collection (/users/{userId})
+    // Apenas o proprietário autenticado correspondente pode ler (get), criar ou atualizar.
+    // Listagens gerais (list) são estritamente proibidas para evitar vazamento de dados de usuários.
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow list: if false;
+      allow create, update: if isOwner(userId);
+      allow delete: if false;
+
+      // Subcoleção de histórico de conversas do assistente de IA (/users/{userId}/chats/{chatId})
+      match /chats/{chatId} {
+        allow get, list, create, update, delete: if isOwner(userId);
+      }
+    }
+
+    // 2. Bios Collection (/bios/{userId})
+    // Leituras públicas (get, list) permitidas para que qualquer visitante aceda à página bio do criador.
+    // Escritas (create, update) só são permitidas se o utilizador estiver autenticado e for o dono exato do documento.
+    match /bios/{userId} {
+      allow get, list: if true;
+      allow create: if isSignedIn() && (request.auth.uid == userId || incoming().userId == request.auth.uid);
+      allow update: if isSignedIn() && (request.auth.uid == userId || existing().userId == request.auth.uid);
+      allow delete: if isOwner(userId);
+
+      // Subcoleção de Depoimentos / Prova Social (/bios/{userId}/testimonials/{testimonialId})
+      match /testimonials/{testimonialId} {
+        allow get, list: if true;
+        allow create, update, delete: if isOwner(userId);
+      }
+    }
+
+    // 3. Analytics Collection (/analytics/{analyticsId})
+    // Visitantes não autenticados podem criar (create) registos para contabilizar cliques e visualizações.
+    // Leituras públicas bloqueadas. get e list APENAS para o criador dono do perfil.
+    match /analytics/{analyticsId} {
+      allow create: if isValidAnalytics(incoming());
+      allow get, list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow update, delete: if false;
+    }
+
+    // 4. Leads Collection (/leads/{leadId})
+    // Visitantes não autenticados podem criar (create) registos ao subscreverem na bio.
+    // Leituras públicas bloqueadas. get e list APENAS para o criador autenticado dono dos leads.
+    match /leads/{leadId} {
+      allow create: if isValidLead(incoming());
+      allow get, list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow update, delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+    }
+  }
+}

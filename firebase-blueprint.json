@@ -1,0 +1,297 @@
+{
+  "entities": {
+    "user": {
+      "title": "User",
+      "description": "User account information and subscription status",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Firebase Auth user identifier",
+          "maxLength": 128
+        },
+        "email": {
+          "type": "string",
+          "description": "User email address",
+          "maxLength": 256
+        },
+        "name": {
+          "type": "string",
+          "description": "User display name",
+          "maxLength": 128
+        },
+        "username": {
+          "type": "string",
+          "description": "Unique handle",
+          "maxLength": 64
+        },
+        "isPro": {
+          "type": "boolean",
+          "description": "Pro subscription flag"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Account creation ISO timestamp",
+          "maxLength": 64
+        }
+      },
+      "required": ["id", "email", "username", "isPro"]
+    },
+    "bio": {
+      "title": "Bio Profile",
+      "description": "User bio page custom configurations, theme, and gallery",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner Auth UID",
+          "maxLength": 128
+        },
+        "username": {
+          "type": "string",
+          "description": "Public bio handle",
+          "maxLength": 64
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Display name on page",
+          "maxLength": 128
+        },
+        "bio": {
+          "type": "string",
+          "description": "Bio description text",
+          "maxLength": 500
+        },
+        "avatarUrl": {
+          "type": "string",
+          "description": "Avatar URL",
+          "maxLength": 1024
+        },
+        "theme": {
+          "type": "string",
+          "description": "Visual theme preset",
+          "maxLength": 32
+        },
+        "font": {
+          "type": "string",
+          "description": "Font selection",
+          "maxLength": 64
+        },
+        "buttonStyle": {
+          "type": "string",
+          "description": "Button style selection",
+          "maxLength": 32
+        },
+        "isPro": {
+          "type": "boolean",
+          "description": "Pro status"
+        },
+        "showWatermark": {
+          "type": "boolean",
+          "description": "Watermark visibility"
+        },
+        "leadFormHeadline": {
+          "type": "string",
+          "description": "Lead magnet title",
+          "maxLength": 200
+        },
+        "leadFormButtonText": {
+          "type": "string",
+          "description": "Lead button label",
+          "maxLength": 64
+        },
+        "enableLeadForm": {
+          "type": "boolean",
+          "description": "Whether to display email signup form on public bio"
+        },
+        "enableTestimonials": {
+          "type": "boolean",
+          "description": "Whether to display testimonial social proof carousel on public bio"
+        },
+        "whatsappNumber": {
+          "type": "string",
+          "description": "WhatsApp contact number",
+          "maxLength": 32
+        },
+        "whatsappWelcomeMessage": {
+          "type": "string",
+          "description": "WhatsApp pre-filled text",
+          "maxLength": 300
+        },
+        "enableWhatsappButton": {
+          "type": "boolean",
+          "description": "Enable WhatsApp button"
+        },
+        "enableTipJar": {
+          "type": "boolean",
+          "description": "Enable Tip Jar"
+        },
+        "tipJarHeadline": {
+          "type": "string",
+          "description": "Tip jar headline",
+          "maxLength": 200
+        },
+        "tipJarCurrency": {
+          "type": "string",
+          "description": "Tip jar currency",
+          "maxLength": 10
+        },
+        "galleryHeadline": {
+          "type": "string",
+          "description": "Gallery header",
+          "maxLength": 200
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last update timestamp",
+          "maxLength": 64
+        }
+      },
+      "required": ["userId", "username", "displayName"]
+    },
+    "analytics": {
+      "title": "Analytics Event",
+      "description": "Recorded link clicks and page views",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner UID",
+          "maxLength": 128
+        },
+        "profileUsername": {
+          "type": "string",
+          "description": "Target profile username",
+          "maxLength": 64
+        },
+        "linkId": {
+          "type": "string",
+          "description": "Clicked link ID",
+          "maxLength": 128
+        },
+        "eventType": {
+          "type": "string",
+          "description": "Event type ('click' or 'view')",
+          "enum": ["click", "view"]
+        },
+        "device": {
+          "type": "string",
+          "description": "Device category",
+          "maxLength": 64
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Event creation timestamp",
+          "maxLength": 64
+        }
+      },
+      "required": ["userId", "profileUsername", "eventType"]
+    },
+    "lead": {
+      "title": "Lead",
+      "description": "Subscribed lead magnet contact",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner UID",
+          "maxLength": 128
+        },
+        "profileUsername": {
+          "type": "string",
+          "description": "Profile handle",
+          "maxLength": 64
+        },
+        "email": {
+          "type": "string",
+          "description": "Subscriber email address",
+          "maxLength": 256
+        },
+        "name": {
+          "type": "string",
+          "description": "Subscriber name",
+          "maxLength": 128
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp",
+          "maxLength": 64
+        }
+      },
+      "required": ["userId", "profileUsername", "email"]
+    },
+    "testimonial": {
+      "title": "Testimonial",
+      "description": "Client testimonial and rating for social proof",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique testimonial ID",
+          "maxLength": 128
+        },
+        "clientName": {
+          "type": "string",
+          "description": "Client name",
+          "maxLength": 128
+        },
+        "clientRole": {
+          "type": "string",
+          "description": "Client role or company",
+          "maxLength": 128
+        },
+        "clientAvatar": {
+          "type": "string",
+          "description": "Client avatar image URL",
+          "maxLength": 1024
+        },
+        "rating": {
+          "type": "number",
+          "description": "Star rating from 1 to 5"
+        },
+        "comment": {
+          "type": "string",
+          "description": "Testimonial review text",
+          "maxLength": 1000
+        },
+        "featured": {
+          "type": "boolean",
+          "description": "Whether testimonial is featured in carousel"
+        }
+      },
+      "required": ["clientName", "clientRole", "comment", "rating"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": {
+        "$ref": "#/entities/user"
+      },
+      "description": "Stores registered user accounts"
+    },
+    "bios/{userId}": {
+      "schema": {
+        "$ref": "#/entities/bio"
+      },
+      "description": "Stores user bio profiles and link configurations"
+    },
+    "bios/{userId}/testimonials/{testimonialId}": {
+      "schema": {
+        "$ref": "#/entities/testimonial"
+      },
+      "description": "Stores user testimonials and reviews for social proof"
+    },
+    "analytics/{analyticsId}": {
+      "schema": {
+        "$ref": "#/entities/analytics"
+      },
+      "description": "Stores engagement analytics and clicks"
+    },
+    "leads/{leadId}": {
+      "schema": {
+        "$ref": "#/entities/lead"
+      },
+      "description": "Stores collected leads"
+    }
+  }
+}

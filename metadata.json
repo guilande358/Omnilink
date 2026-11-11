@@ -1,0 +1,6 @@
+{
+  "name": "OmniLink: Smart Bio & Social Proof",
+  "description": "Dynamic link aggregator and high-converting bio-in-link SaaS with social proof carousels, lead capture, and Trywalled payment gateway.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" fill="none">
+  <defs>
+    <linearGradient id="omnilink-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c3aed" />
+      <stop offset="100%" stop-color="#4f46e5" />
+    </linearGradient>
+    <linearGradient id="accent-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+  </defs>
+
+  <!-- Clean rounded squircle container -->
+  <rect width="48" height="48" rx="12" fill="url(#omnilink-gradient)" />
+
+  <!-- Universal Interconnected Double-Chain Link Symbol (Most standard & trusted for link-in-bio platforms) -->
+  <g transform="translate(24, 24) rotate(-45) translate(-24, -24)" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- Top-left link loop -->
+    <path d="M19 19 H15 A6 6 0 0 1 15 7 H23 A6 6 0 0 1 29 13 V15" />
+    <!-- Bottom-right link loop -->
+    <path d="M29 29 H33 A6 6 0 0 0 33 41 H25 A6 6 0 0 0 19 35 V33" />
+    <!-- Bridge connection -->
+    <line x1="18" y1="24" x2="30" y2="24" stroke="url(#accent-gradient)" stroke-width="3.5" />
+  </g>
+</svg>

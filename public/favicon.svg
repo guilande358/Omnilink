@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none">
+  <defs>
+    <linearGradient id="fav-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e1b4b" />
+    </linearGradient>
+    <linearGradient id="fav-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c3aed" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+  </defs>
+
+  <!-- Crisp high-contrast background for dark and light tabs -->
+  <rect width="32" height="32" rx="8" fill="url(#fav-bg)" />
+  <rect width="30" height="30" x="1" y="1" rx="7" stroke="url(#fav-grad)" stroke-width="1.2" opacity="0.6" />
+
+  <!-- Universal Link-in-Bio Chain Icon -->
+  <g transform="translate(16, 16) rotate(-45) translate(-16, -16)" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M13 13 H10 A4 4 0 0 1 10 5 H15 A4 4 0 0 1 19 9 V10" />
+    <path d="M19 19 H22 A4 4 0 0 0 22 27 H17 A4 4 0 0 0 13 23 V22" />
+    <line x1="12" y1="16" x2="20" y2="16" stroke="#10b981" stroke-width="2.4" />
+  </g>
+</svg>
